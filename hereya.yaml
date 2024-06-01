@@ -1,0 +1,5 @@
+project: hereya-docs
+workspace: hereya-dev
+deploy:
+  hereya/cloudfront-deploy:
+    version: ""
