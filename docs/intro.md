@@ -41,7 +41,7 @@ node index.js my message # Store my message in the database
 You can install **Hereya** by running the following command:
 
 ```bash
-npm install -g hereya 
+npm install -g hereya-cli 
 ```
 
 ## Set up the Node.js project
