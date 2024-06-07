@@ -112,8 +112,8 @@ project: hereya-tutorial
 workspace: dev
 ```
 
-Add postgres package to your project. A package in hereya is a GitHub repository. Let's add the package 
-[hereya/local-postgres](https://github.com/hereya/local-postgres) to your project:
+Add postgres package to your project. A package in hereya is a GitHub repository. 
+Let's add the package [hereya/local-postgres](https://github.com/hereya/local-postgres) to your project. Make sure *Docker* is running on your machine.
 
 ```bash
 hereya add hereya/local-postgres

@@ -176,16 +176,20 @@ app.listen(port, () => {
 In this code snippet, we created a simple express server with `/movies` endpoints. 
 You can run `node index.js` to start the server and test the endpoints.
 
-We will implement the logic for storing and retrieving movies from the mongodb database in the next steps.
+We will implement the logic for storing and retrieving movies from a mongodb database in the next steps.
 
 ## Add mongodb to your project
 
 In this step, we will add a mongodb database to our project with a single command.
 
-Without *hereya*, you would need to set up a mongodb database, configure the connection string, and manage the database.
+Without *hereya*, you would need to set up a mongodb database, configure the connection string, and provide it as 
+an environment variable to your app.
 
 With *hereya*, you can do all of these steps and more with a single command.
-Let's add the package `hereya/mongo` to our project:
+
+
+Let's add the package [hereya/mongo](https://github.com/hereya/mongo) to our project. Make sure *Docker* is running on 
+your machine.
 
 ```bash
 hereya add hereya/mongo
@@ -209,15 +213,14 @@ packages:
 `hereya.yaml` should be checked into your version control system. It is similar to `package.json` in a Node.js project.
 
 You can notice that the `hereya/mongo` package has an `onDeploy` section. This section specifies that when you 
-deploy your project with the command `hereya deploy`, the package `hereya/aws-documentdb` will be deployed instead 
-of `hereya/mongo` which can only be used in local environment. We will see how to deploy the project to AWS later.
+deploy your project with the command `hereya deploy`, the package [hereya/aws-documentdb](https://github.com/hereya/aws-documentdb) will be deployed instead of `hereya/mongo` which can only be used in a local environment. We will see how to deploy the project to AWS later.
 
 ## Connect to the mongodb database
 
 `hereya/mongo` exports the following variables: `mongoUrl`, `mongoDbname`.
 `hereya/aws-documentdb`, which will be used in the AWS environment, exports additional variables: `mongoUsername` and `mongoPassword`.
 
-You can print the environment variables exported by all packages by running:
+You can print the environment variables exported by all installed packages by running:
 
 ```bash
 hereya env -l
@@ -409,9 +412,18 @@ hereya bootstrap aws
 hereya workspace create staging
 ```
 
-* Add a deployment package to your project. In this tutorial, we will deploy to `AWS AppRunner` using the package `hereya/aws-apprunner-deploy`:
+* Add a deployment package to your project. In this tutorial, we will deploy to `AWS AppRunner` using the package 
+  [hereya/aws-apprunner-deploy](https://github.com/hereya/aws-apprunner-deploy):
+
 ```bash
 hereya add hereya/aws-apprunner-deploy
+```
+
+Your code will be uploaded, built and deployed right in your AWS account. To avoid uploading unnecessary files, 
+create a file named `.hereyaignore` in the root of your project and add the following content:
+```
+node_modules
+.hereya
 ```
 
 * Add Dockerfile
@@ -445,6 +457,8 @@ hereya deploy -w staging
 ```
 
 This will deploy your app to AWS AppRunner with the mongodb database running on AWS DocumentDB.
+
+Be patient, the first time you issue this command in your project, the deployment process may take a moment.
 After the deployment is complete, you will see the URL of your app.
 
 You can test the endpoints using the URL provided by AWS AppRunner.
