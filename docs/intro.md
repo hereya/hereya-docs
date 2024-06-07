@@ -5,6 +5,9 @@ sidebar_position: 1
 # Getting Started
 
 Let's discover **Hereya in less than 15 minutes** by building a simple Node.js app with a postgres database.
+
+*Hereya* frees you from managing environment variables and infrastructure, so you can focus on building your app.
+
 In this tutorial, you will learn how to:
 
 - Initialize Hereya in a project
@@ -142,7 +145,10 @@ If you use this command, *Hereya* will create the file `hereyavars/local-postgre
 ```yaml
 port: 5433
 ```
+Alternatively, you can manually create the file `hereyavars/local-postgres.yaml` and add the port parameter to it.
+
 Make sure to check this file into your version control system.
+
 
 This package exports the following environment variables:
 `POSTGRES_URL`, `POSTGRES_ROOT_URL`, `DBNAME`.
@@ -152,8 +158,11 @@ You can print the environment variables exported by all packages by running:
 ```bash
 hereya env
 ```
+Without **Hereya**, you would have to provide these environment variables to your app, by setting them in a `.env` 
+file and using a dedicated npm package like dotenv, for example.
 
-You don't need to manage the environment variables yourself. **Hereya** will manage them for you.
+With **Hereya**, you don't need to manage environment variables as you will see in the next section. So no extra 
+dependencies are needed.
 
 ## Write the Node.js app
 
@@ -243,3 +252,24 @@ hereya run node index.js
 # │ 1  │ my message     │
 # └────┴────────────────┘
 ```
+
+
+## Clean up
+
+To remove resources created by **Hereya**, you can run the following command:
+
+```bash
+hereya down
+```
+
+## Conclusion
+In this tutorial, you learned how to use **Hereya** to automate infrastructure provisioning and environment 
+variables with the same workflow you use when you add software dependencies to your project. 
+
+*Hereya* assists you during the development process by providing a simple way to manage your infrastructure and environment variables.
+
+*Hereya* can do much more than what we covered in this tutorial. You can [deploy your app](/docs/aws-tuto-basics) to 
+the cloud 
+with a single 
+command, when you are ready to go to production.
+
