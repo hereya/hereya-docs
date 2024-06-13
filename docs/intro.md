@@ -268,7 +268,7 @@ variables with the same workflow you use when you add software dependencies to y
 
 *Hereya* assists you during the development process by providing a simple way to manage your infrastructure and environment variables.
 
-*Hereya* can do much more than what we covered in this tutorial. You can [deploy your app](/docs/aws-tuto-basics) to 
+*Hereya* can do much more than what we covered in this tutorial. You can [deploy your app](/docs/deploy-nodejs-aws.md) to 
 the cloud 
 with a single 
 command, when you are ready to go to production.
