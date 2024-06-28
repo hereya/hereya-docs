@@ -20,10 +20,6 @@ To follow this tutorial, you need to have the following installed on your machin
 - [Node.js](https://nodejs.org/en/download/) version 18.0 or above.
 - [docker](https://docs.docker.com/get-docker/): *hereya* will use docker to run a postgres database.
   - You can install it by following the instructions on the [official website](https://docs.docker.com/get-docker/).
-- [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli): **hereya packages** are reusable 
-  infrastructure as code components and need the appropriate runtime to be installed. In this tutorial, we will need 
-  terraform. ***You will not write any terraform code***.
-  - You can install it by following the instructions on the [official website](https://learn.hashicorp.com/tutorials/terraform/install-cli).
 
 
 ## What you will build
