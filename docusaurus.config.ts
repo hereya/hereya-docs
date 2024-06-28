@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Hereya',
   tagline: 'Infrastructure as Package',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.webp',
 
   // Set the production url of your site here
   url: 'https://docs.hereya.dev/',
@@ -56,11 +56,11 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/hereya-social-card.jpg',
     navbar: {
       title: 'Hereya',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Hereya Logo',
         src: 'img/logo.svg',
       },
       items: [
