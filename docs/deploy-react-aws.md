@@ -195,9 +195,7 @@ After you finish the tutorial, you can clean up the resources you created in you
 hereya undeploy -w staging
 ```
 
-The resources created by `hereya bootstrap aws` does not incur costs when not in use. If you no longer want to
-use `hereya` in your AWS account, you can remove the resources by running:
-
+* If you no longer want to use `hereya` in your AWS account, you can remove the resources created by `hereya bootstrap aws` by running:
 ```bash
 hereya unbootstrap aws
 ```

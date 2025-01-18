@@ -181,7 +181,7 @@ In this step, we will add a mongodb database to our project with a single comman
 Without *hereya*, you would need to set up a mongodb database, configure the connection string, and provide it as 
 an environment variable to your app.
 
-With *hereya*, you can do all of these steps and more with a single command.
+With *hereya*, you can do all of these steps and more with a single command. *hereya* manage infrastructure through reusable infrastructure as code modules called *packages*. 
 
 
 Let's add the package [hereya/mongo](https://github.com/hereya/mongo) to our project. Make sure *Docker* is running on 
@@ -398,7 +398,8 @@ First of all, we need to bootstrap the AWS environment. This step is required on
 resources for `hereya` to manage deployments in your AWS account. 
 This step requires admin access to your AWS account. Make sure `AWS CLI` is installed and configured with your AWS account credentials.
 
-* Run the following command to bootstrap the AWS environment:
+* Run the following command to bootstrap your AWS environment. It invokes the [hereya/bootstrap-aws-stack](https://github.com/hereya/bootstrap-aws-stack.git) package, which uses the AWS CDK to set up an S3 bucket and a DynamoDB table for managing [openTofu](https://opentofu.org) package states. Both *AWS CDK* and *openTofu* are infrastructure-as-code frameworks used by Hereya packages.
+
 ```bash
 hereya bootstrap aws
 ```
@@ -415,24 +416,38 @@ hereya workspace create staging
 hereya add hereya/aws-apprunner-deploy
 ```
 
-Your code will be uploaded, built and deployed right in your AWS account. To avoid uploading unnecessary files, 
-create a file named `.hereyaignore` in the root of your project and add the following content:
-```
-node_modules
-.hereya
+A docker image will be built and deployed to AWS. Create a Dockerfile in the root of your project with the following content:
+```Dockerfile
+# Use the official Node.js image as the base image
+FROM --platform=linux/amd64 node:20
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json files to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --only=production
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the app
+CMD ["node", "index.js"]
+
 ```
 
 * Deploy to AWS:
 ```bash
 hereya deploy -w staging
 ```
+This command deploys your application to AWS AppRunner, using AWS DocumentDB for the MongoDB-compatible database. Because this is the first time you’re running the deployment, it may take a few minutes to complete. Once the process finishes, you’ll receive a URL for your application. 
 
-This will deploy your app to AWS AppRunner with the mongodb database running on AWS DocumentDB.
-
-Be patient, the first time you issue this command in your project, the deployment process may take a moment.
-After the deployment is complete, you will see the URL of your app.
-
-You can test the endpoints using the URL provided by AWS AppRunner.
+You can then use this AWS AppRunner-provided URL to test your app’s endpoints.
 
 ## Clean up
 
@@ -443,7 +458,7 @@ To avoid incurring costs, make sure to clean up the resources created in your AW
 hereya undeploy -w staging
 ```
 
-The resources created by `hereya bootstrap aws` does not incur costs when not in use. If you no longer want to use `hereya` in your AWS account, you can remove the resources by running:
+* If you no longer want to use `hereya` in your AWS account, you can remove the resources created by `hereya bootstrap aws` by running:
 ```bash
 hereya unbootstrap aws
 ```
