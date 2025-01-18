@@ -247,6 +247,7 @@ const password = process.env.mongoPassword;
 
 export const mongoClient = new MongoClient(mongoUrl, password ? {
     auth: {username, password},
+    authMechanism: "SCRAM-SHA-1",
 } : {})
 
 
